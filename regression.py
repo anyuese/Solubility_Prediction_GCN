@@ -20,10 +20,10 @@ parser = argparse.ArgumentParser(
     description="Graph Convolutional Network for logS Regression", 
     epilog="python regression.py -D './myDataset.xlsx' -X1 'Solute SMILES' -X2 'Solvent SMILES' -Y 'LogS' -O './results/myResult.json' -M './results/myModel.pt'")
 parser.add_argument('--seed', '-s', type=int, default=123, help='seed')
-parser.add_argument('--input_path', '-D', type=str, required=True, help="dataset path and name ('./dataset.xlsx')")
-parser.add_argument('--solute_smiles', '-X1', type=str, required=True, help="column name of solute smiles ('Solute SMILES')")
-parser.add_argument('--solvent_smiles', '-X2', type=str, required=True, help="column name of solvent smiles ('Solvent SMILES')")
-parser.add_argument('--logS', '-Y', type=str, required=True, help="column name of logS ('LogS')")
+parser.add_argument('--input_path', '-D', type=str, default='data/data01.csv', help="dataset path and name ('./dataset.xlsx')")
+parser.add_argument('--solute_smiles', '-X1', type=str, default='Solute SMILES', help="column name of solute smiles ('Solute SMILES')")
+parser.add_argument('--solvent_smiles', '-X2', type=str, default='Solvent SMILES', help="column name of solvent smiles ('Solvent SMILES')")
+parser.add_argument('--logS', '-Y', type=str, default='LogS', help="column name of logS ('LogS')")
 parser.add_argument('--output_path', '-O', type=str, default='./results/result.json', 
                     help="output path and name (defualt='./results/result.json')")
 parser.add_argument('--model_path', '-M', type=str, default='./results/model.pt', help="model path and name ('./results/model.pt')")
@@ -71,7 +71,7 @@ test_mols1_key, test_mols2_key, test_mols_value = make_regre_mol(X_test)
 
 train_X1, train_X2 = make_regre_vec(train_mols1_key, train_mols2_key, train_mols_value)
 test_X1, test_X2 = make_regre_vec(test_mols1_key, test_mols2_key, test_mols_value)
-
+print(train_X1[:5])
 train_X = []
 for i in range(len(train_X1)):
     train_X.append([train_X1[i], train_X2[i]])
